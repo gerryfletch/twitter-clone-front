@@ -1,0 +1,65 @@
+$primary-color: #3087ff;
+$secondary-color: #47a2ff;
+
+@mixin primary-logo($colour) {
+  font-family:'Source Sans Pro', serif;
+  font-weight:600;
+  color: $colour;
+}
+
+form {
+  max-width:200px;
+  margin: 0 auto;
+  margin-top:10px;
+  input {
+    width:100%;
+    border:0px;
+    border-bottom:1px solid #d7d7d7;
+    font-size:1em;
+    padding: 5px 10px 5px 0px;
+    margin-top:15px;
+    color:#444;
+  }
+
+  input:focus {
+    outline:none;
+    border-bottom:1px solid $primary-color;
+  }
+}
+
+.buttons {
+  max-width: 200px;
+  margin: 0 auto;
+  margin-top:30px;
+  display:flex;
+  justify-content: flex-end;
+
+  button {
+    padding:10px 15px 10px 15px;
+    font-weight:600;
+    border-radius: 5px;
+  }
+
+  button:focus {
+    outline: 0;
+  }
+
+  .login-button {
+    background-color: $primary-color;
+    border-bottom:2px solid #3087ff;
+    color:white;
+  }
+
+  .login-button:hover {
+    background-color: $secondary-color;
+  }
+
+  .signup-button {
+    background-color:white;
+    color: $primary-color;
+  }
+
+  .signup-button:hover {
+    text-decoration:underline;
+  }
+}
