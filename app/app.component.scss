@@ -4,8 +4,8 @@ $primary-color: #3087ff;
 $secondary-color: #47a2ff;
 
 @mixin primary-logo($colour) {
-  font-family:'Source Sans Pro', serif;
-  font-weight:600;
+  font-family: 'Source Sans Pro', serif;
+  font-weight: 600;
   color: $colour;
 }
 
@@ -24,7 +24,7 @@ main {
   width: 100%;
   min-width: 300px;
   height: auto;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -36,79 +36,74 @@ main {
 .signup {
   order: 1;
   * {
-    font-family:'Source Sans Pro', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
   }
 
   h1 {
     @include primary-logo($primary-color);
-    font-size:2.3em;
-    max-width:200px;
-    margin:0 auto;
+    font-size: 2.3em;
+    max-width: 200px;
+    margin: 0 auto;
   }
-
 
 }
 
 .landing {
   * {
-    font-family:'Source Sans Pro', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
   }
 
   h1 {
     @include primary-logo(#FFF);
-    font-size:2.3em;
+    font-size: 2.3em;
   }
 
   h2 {
-    font-weight:400;
-    color:white;
-    margin-top:10px;
-    margin-bottom:20px;
-    font-size:1.3em
+    font-weight: 400;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 1.3em
   }
 
   p {
-    margin-top:10px;
-    margin-bottom:10px;
-    color:white;
-    line-height:1.1em;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: white;
+    line-height: 1.1em;
   }
 
   a {
-    color:white;
-    margin-top:20px;
-    font-weight:600;
-    text-decoration:none;
+    color: white;
+    margin-top: 20px;
+    font-weight: 600;
+    text-decoration: none;
     padding-bottom: 3px;
-    border-bottom:1px solid white;
+    border-bottom: 1px solid white;
   }
 
-  //https://scontent-lhr3-1.xx.fbcdn.net/v/t34.0-12/19047577_1046204878843571_1201808771_n.jpg?oh=93773a4d3c564b80710fad2dbf8628d9&oe=593A1A6F
-
   background:
-    /* top, transparent red */
     linear-gradient(
         rgba(48, 135, 255, 0.7),
         rgba(48, 135, 255, 0.7)
     ),
-      /* bottom, image */
-    url(https://scontent-lhr3-1.xx.fbcdn.net/v/t34.0-12/19047577_1046204878843571_1201808771_n.jpg?oh=93773a4d3c564b80710fad2dbf8628d9&oe=593A1A6F);
-  background-repeat:no-repeat;
+
+    url('../assets/background.jpg');
+  background-repeat: no-repeat;
   background-size: cover;
-  background-position:100% 0%;
+  background-position: 100% 0%;
 }
 
 @media (min-width: 950px) {
-  .section-2 {
-    width:50%;
-  }
 
   .landing {
     order: 1;
+    width: 35%;
   }
 
   .signup {
     order: 2;
+    width: 35%;
   }
 }
 
