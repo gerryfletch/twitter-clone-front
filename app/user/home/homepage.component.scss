@@ -1,0 +1,103 @@
+@import '../../partials/base';
+
+.blue {
+  background-color: $primary-color;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.section-2 {
+  width: 100%;
+  min-width: 300px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing {
+  order: 2;
+}
+
+.signup {
+  order: 1;
+  * {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+  h1 {
+    @include primary-logo($primary-color);
+    font-size: 2.3em;
+    max-width: 200px;
+    margin: 0 auto;
+  }
+
+}
+
+.landing {
+  * {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+  h1 {
+    @include primary-logo(#FFF);
+    font-size: 2.3em;
+  }
+
+  h2 {
+    font-weight: 400;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 1.3em
+  }
+
+  p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: white;
+    line-height: 1.1em;
+  }
+
+  a {
+    color: white;
+    margin-top: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    padding-bottom: 3px;
+    border-bottom: 1px solid white;
+  }
+
+  background:
+    linear-gradient(
+        rgba(48, 135, 255, 0.7),
+        rgba(48, 135, 255, 0.7)
+    ),
+
+    url('../../../assets/background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 100% 0%;
+}
+
+@media (min-width: 950px) {
+
+  .landing {
+    order: 1;
+    width: 35%;
+  }
+
+  .signup {
+    order: 2;
+    width: 35%;
+  }
+}
+
+.full-height {
+  height: 100%
+}

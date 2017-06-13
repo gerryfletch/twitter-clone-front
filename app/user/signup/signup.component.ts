@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
+  selector: 'app-signup-comp',
   templateUrl: './signup.component.html',
   styleUrls: [
     './signup.component.scss',
@@ -8,12 +9,4 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class SignupComponent {
-  ngOnInit() {
-    console.log(localStorage);
-  }
-
-  signout() {
-    localStorage.clear();
-    console.log('local storage cleared');
-  }
 }

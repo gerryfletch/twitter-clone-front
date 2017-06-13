@@ -14,13 +14,17 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './_guards/auth.guards';
 import { AuthenticationService, UserService } from './_services/index';
 import { HttpModule } from '@angular/http';
+import {HomePageComponent} from './user/home/homepage.component';
+import {FormsComponent} from './user/forms/forms.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomePageComponent,
     SignupComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    FormsComponent
   ],
   imports: [
     BrowserModule,
