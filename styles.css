@@ -1,3 +1,5 @@
+
+
 /* You can add global styles to this file, and also import other style files */
 
 html, body, div, span, applet, object, iframe,
@@ -42,6 +44,11 @@ q:before, q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+
+input {
+  -webkit-appearance: none;
 }
 
 html { box-sizing: border-box; }

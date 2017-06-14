@@ -1,4 +1,6 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
+import {Router, RouterModule, Routes} from '@angular/router';
+import {AuthenticationService} from '../../_services/authentication.service';
 
 @Component({
   selector: 'app-homepage',
@@ -6,8 +8,15 @@ import {Component} from '@angular/core';
   styleUrls: ['homepage.component.scss']
 })
 export class HomePageComponent {
-  show: boolean;
-  constructor() {
-    console.log("SHOW: " + this.show);
+  isLogin: boolean;
+  constructor(private router: Router,
+              private auth: AuthenticationService) {
+
+    console.log(localStorage);
+    if ( auth.isLoggedIn() ) {
+      this.router.navigateByUrl('/dashboard');
+    }
+
+    this.isLogin = (this.router.url === '/login');
   }
 }

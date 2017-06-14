@@ -1,8 +1,8 @@
 <form>
-  <input type="text" name="username" placeholder="Username" />
-  <input type="password" name="password" placeholder="Password" />
+  <input #username type="text" name="username" placeholder="Username" />
+  <input #password type="password" name="password" placeholder="Password" />
 </form>
 <section class="buttons">
-  <button class="login-button active" (click)="login()">LOGIN</button>
+  <button class="login-button active" (click)="login(username.value, password.value)">LOGIN</button>
   <button class="signup-button" routerLink="/signup">SIGN UP</button>
 </section>

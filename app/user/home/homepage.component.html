@@ -15,7 +15,8 @@
     <div class="container">
       <section>
         <h1>twitter.</h1>
-        <app-forms></app-forms>
+        <app-login-comp *ngIf="isLogin"></app-login-comp>
+        <app-signup-comp *ngIf="!isLogin"></app-signup-comp>
       </section>
     </div>
   </section>

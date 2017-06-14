@@ -17,9 +17,9 @@ export class LoginComponent {
               private authenticationService: AuthenticationService) {
   }
 
-  login() {
+  login(username, password) {
     this.loading = true;
-    this.authenticationService.login('istannen', 'Passw0rd6')
+    this.authenticationService.login(username, password)
       .subscribe(result => {
         if (result === true) {
           console.log('Logged in.');

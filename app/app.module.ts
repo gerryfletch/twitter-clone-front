@@ -5,6 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './routing/app-routing.module';
 
 import { AppComponent } from './app.component';
+
+/* Login + Signup Index */
+import { HomePageComponent } from './user/home/homepage.component';
 import { SignupComponent } from './user/signup/signup.component';
 import { LoginComponent } from './user/login/login.component';
 
@@ -12,10 +15,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 /* JWT */
 import { AuthGuard } from './_guards/auth.guards';
-import { AuthenticationService, UserService } from './_services/index';
+import { AuthenticationService } from './_services/index';
 import { HttpModule } from '@angular/http';
-import {HomePageComponent} from './user/home/homepage.component';
-import {FormsComponent} from './user/forms/forms.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -23,19 +25,18 @@ import {FormsComponent} from './user/forms/forms.component';
     HomePageComponent,
     SignupComponent,
     LoginComponent,
-    DashboardComponent,
-    FormsComponent
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthGuard,
-    AuthenticationService,
-    UserService
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })

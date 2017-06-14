@@ -1,8 +1,43 @@
 <form>
-  <input type="text" placeholder="@handle" />
-  <input type="text" placeholder="display name" />
-  <input type="email" placeholder="you@email.com" />
-  <input type="password" placeholder="********" />
+  <div class="atContainer">
+    <div class="handleAt" [class.atError]="isError" [class.isFocused]="isFocused">
+      <p>@</p>
+    </div>
+    <input [(ngModel)]="handle"
+           name="handle"
+           type="text"
+           placeholder="handle"
+           (keyup)="checkHandle()"
+           [class.handleError]="!isHandleOk"
+           (focus)="handleFocused()"
+           (focusout)="handleUnfocused()"
+    />
+  </div>
+  <p *ngIf="!isHandleOk" [@showHideText]="!isHandleOk" class="inputHelper">A handle must only contain lower case letters, numbers, - and _</p>
+  <input [(ngModel)]="displayName"
+         name="displayName"
+         type="text"
+         placeholder="display name"
+         (keyup)="checkDisplay()"
+         [class.error]="!isDisplayOk"
+  />
+  <input [(ngModel)]="email"
+         name="email"
+         type="email"
+         placeholder="you@email.com"
+         (keyup)="checkEmail()"
+         [class.error]="!isEmailOk"
+  />
+  <input [(ngModel)]="password"
+         name="password"
+         type="password"
+         placeholder="********"
+         (keyup)="checkPassword()"
+         (focus)="showText()"
+         (focusout)="hideText()"
+         [class.error]="!isPasswordOk"
+  />
+  <p *ngIf="!isPasswordOk" [@showHideText]="!isPasswordOk" class="inputHelper">passwords must contain uppercase + lowercase characters, and at least 1 number.</p>
 </form>
 <section class="buttons">
   <button class="active">SIGN UP</button>
