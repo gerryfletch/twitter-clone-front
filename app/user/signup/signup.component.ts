@@ -1,11 +1,15 @@
-import {Component, NgModule, trigger, transition, style, animate, state} from '@angular/core'
-import {BrowserModule} from '@angular/platform-browser'
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import {Component, trigger, transition, style, animate, state} from '@angular/core'
 
+import {VerificationService} from '../../_services/user/verification-service.service';
+import {RegisterService} from '../../_services/user/register.service';
+import {UserUtilsService} from '../../_services/user/user-utils.service';
+import {AuthenticationService} from 'app/_services';
+import {Router} from '@angular/router';
 
 
 @Component({
   selector: 'app-signup-comp',
+  providers: [VerificationService, RegisterService, UserUtilsService],
   templateUrl: './signup.component.html',
   styleUrls: [
     './signup.component.scss',
@@ -29,143 +33,105 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 export class SignupComponent {
 
   isFocused: boolean;
-  isError: boolean;
+  isHandleAvailable = true;
 
-  handle: string;
+  handle = '';
+  cachedHandle = '';
   isHandleOk = true;
 
-  displayName: string;
+  displayName = '';
   isDisplayOk = true;
 
-  email: string;
+  email = '';
   isEmailOk = true;
 
-  password: string;
+  password = '';
   isPasswordOk = true;
 
+  isResponseError = false;
+  responseError = '';
+
+  constructor(private verificationService: VerificationService,
+              private userUtils: UserUtilsService,
+              private registrationService: RegisterService,
+              private authenticationService: AuthenticationService,
+              private router: Router) {
+  }
+
   handleFocused() {
-    if (this.isHandleOk) {
-      this.isFocused = true;
-      this.isError = false;
-    } else {
-      this.isFocused = false;
-      this.isError = true;
-    }
+    this.isFocused = this.isHandleOk;
   }
 
   handleUnfocused() {
     this.isFocused = false;
-    if (this.isHandleOk) {
-      this.isError = false;
+  }
+
+
+  validateForm() {
+    this.handle = this.handle.toLowerCase().trim();
+
+    if (this.handle !== this.cachedHandle) {
+      this.isHandleOk = this.verificationService.isHandleValid(this.handle);
+    }
+
+    /* Check that the handle is available */
+    if ((this.isHandleOk && this.handle !== '') &&
+      this.handle !== this.cachedHandle) {
+
+      this.userUtils.doesHandleExist(this.handle).subscribe(
+        (result) => {
+          this.isHandleAvailable = !result.ok;
+          return false;
+        },
+        (error) => this.isHandleAvailable = true);
     } else {
-      this.isError = true;
-    }
-  }
-
-  checkHandle() {
-    this.handle = this.handle.toLowerCase();
-    const handle = this.handle;
-
-    if (handle === '') {
-      this.isHandleOk = true;
-      this.handleFocused();
-      return;
+      this.isHandleAvailable = true;
     }
 
-    if (isHandleValid(handle)) {
-      this.isHandleOk = true;
-    } else {
-      this.isHandleOk = false;
+    // Set Cached handle to save resources later
+    this.cachedHandle = this.handle;
+
+    this.isDisplayOk = this.verificationService.isDisplayNameValid(this.displayName);
+
+    this.email = this.email.trim();
+    this.isEmailOk = this.verificationService.isEmailValid(this.email);
+
+    this.password = this.password.trim();
+    this.isPasswordOk = this.verificationService.isPasswordValid(this.password);
+
+    if ((this.isPasswordOk && this.isEmailOk && this.isDisplayOk && this.isHandleOk) &&
+      this.password !== '' && this.email !== '' && this.displayName != '' && this.handle !== '') {
+      return true;
     }
-
-    this.handleFocused();
-  }
-
-  checkDisplay() {
-    const displayName = this.displayName;
-    // If it is empty, reset
-    if (displayName === '') { this.isDisplayOk = true; return }
-
-    if (this.displayName.length < 3 || this.displayName.length > 15) {
-      this.isDisplayOk = false;
-      return;
-    }
-    this.isDisplayOk = true;
-    return;
-  }
-
-  checkEmail() {
-    const email = this.email;
-    if (email === '') { this.isEmailOk = true; return }
-
-    const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (pattern.test(email)) {
-      this.isEmailOk = true;
-    } else {
-      this.isEmailOk = false;
-    }
-  }
-
-  /* Passwords must:
-   1) Contain one digit from 0-9
-   2) Contain one lowercase character
-   3) Contain one uppercase character
-   4) Be at least 8 characters long, and less than 20
-   */
-  checkPassword() {
-    const password = this.password;
-    if (password === '') { this.isPasswordOk = true; return }
-
-    /*
-
-     */
-    const pattern = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})/;
-    if (pattern.test(password)) {
-      this.isPasswordOk = true;
-    } else {
-      this.isPasswordOk = false;
-    }
-  }
-
-  showPasswordText = false;
-
-  showText() {
-    this.showPasswordText = true;
-  }
-
-  hideText() {
-    this.showPasswordText = false;
-  }
-}
-
-const isHandleValid = (handle) => {
-  if (handle.length < 3 || handle.length > 15) {
     return false;
+
   }
 
-  let isSpecialChar = false;
-
-  for (let i = 0; i < handle.length; i++) {
-    const currentChar = handle.charAt(i);
-    if (currentChar === '-' || currentChar === '_') {
-      if (isSpecialChar) {
-        return false;
-      } else {
-        isSpecialChar = true;
-      }
-    } else if (charIsAlphaNumeric(currentChar)) {
-      isSpecialChar = false;
-    } else {
-      return false; /* Any non-alphanumeric or -/_ character */
+  register() {
+    if (this.validateForm()) {
+      this.registrationService.registerNewUser(this.handle, this.displayName, this.email, this.password)
+        .subscribe(
+          (result) => {
+            console.log(result);
+            const resultJson = result.json();
+            console.log(resultJson);
+            if (result.ok) {
+              const handle = resultJson.handle;
+              const uid = resultJson.uid;
+              const token = resultJson.token;
+              this.authenticationService.storeLogin(handle, uid, token);
+              this.router.navigate(['/dashboard']);
+            } else {
+              this.responseError = 'An error occured.';
+              this.isResponseError = true;
+            }
+          },
+          (error) => {
+            const errorJson = JSON.parse(error._body);
+            this.responseError = errorJson.error;
+            this.isResponseError = true;
+          });
     }
   }
 
-  return true;
-}
-
-const charIsAlphaNumeric = (char: string) => {
-  const pattern = /[a-zA-Z0-9]/;
-  const ans = pattern.test(char);
-
-  return ans;
 }

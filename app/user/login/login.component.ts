@@ -9,25 +9,36 @@ import {Router} from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  model: any = {};
+
+  handle = '';
+  password = '';
+
   loading = false;
   error = '';
+  isError = false;
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService) {
   }
 
-  login(username, password) {
+  login() {
     this.loading = true;
-    this.authenticationService.login(username, password)
-      .subscribe(result => {
-        if (result === true) {
-          console.log('Logged in.');
-          this.router.navigate(['/dashboard']);
-        } else {
-          this.error = 'Username or Password is incorrect.';
+    this.authenticationService.login(this.handle, this.password)
+      .subscribe(
+        (result) => {
+          if (result === true) {
+            this.router.navigate(['/dashboard']);
+          } else {
+            this.error = 'Something went wrong.';
+            this.isError = true;
+            this.loading = false;
+          }
+        },
+        (error) => {
+          const errorJson = JSON.parse(error._body);
+          this.error = errorJson.error;
+          this.isError = true;
           this.loading = false;
-        }
-      });
+        });
   }
 }

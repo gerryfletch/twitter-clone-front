@@ -1,5 +1,8 @@
 $primary-color: #3087ff;
-$secondary-color: #47a2ff;
+$secondary-color-light: #47a2ff;
+$secondary-color-dark: #2966b9;
+
+$error-colour: #ff4033;
 
 @mixin primary-logo($colour) {
   font-family:'Source Sans Pro', serif;

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {Router, RouterModule, Routes} from '@angular/router';
-import {AuthenticationService} from '../../_services/authentication.service';
+import {AuthenticationService} from '../_services/user/authentication.service';
 
 @Component({
   selector: 'app-homepage',

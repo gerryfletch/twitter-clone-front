@@ -49,6 +49,9 @@ table {
 
 input {
   -webkit-appearance: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html { box-sizing: border-box; }
@@ -60,6 +63,10 @@ input{
   padding: 0;
 }
 
+div:focus {
+  outline:none;
+}
+
 html, body {
   margin:0;
   padding:0;
@@ -69,7 +76,7 @@ html, body {
 /* Utils */
 .container{
   width:80%;
-  max-width:900px;
+  max-width:1024px;
   height:auto;
   display:block;
   margin:0 auto;

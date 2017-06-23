@@ -1,22 +1,48 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from '../_guards/auth.guards';
-import { DashboardComponent } from '../dashboard/dashboard.component';
-import { HomePageComponent } from '../user/home/homepage.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {AuthGuard} from '../_guards/auth.guards';
+import {DashboardComponent} from '../components/dashboard/dashboard.component';
+import {HomePageComponent} from '../home/homepage.component';
+import {LogoutComponent} from '../user/logout/logout.component';
+import {MenuComponent} from '../components/menu/menu.component';
+import {UserProfileComponent} from '../components/content/user-profile/user-profile.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/signup', pathMatch: 'full', canActivate: [AuthGuard]},
-  { path: 'signup', component: HomePageComponent, data: {show: false} },
-  { path: 'login', component: HomePageComponent, data: {show: true}},
-  { path: 'dashboard', component: DashboardComponent},
+  {
+    path: '',
+    redirectTo: '/signup',
+    pathMatch: 'full',
+    canActivate: [AuthGuard]},
+  {
+    path: 'signup',
+    component: HomePageComponent},
+  {
+    path: 'login',
+    component: HomePageComponent},
+  {
+    path: 'logout',
+    component: LogoutComponent},
+  {
+    path: 'dashboard',
+    component: DashboardComponent
+  },
+  {
+    path: 'menu',
+    component: MenuComponent
+  },
+  {
+    path: 'user/:handle',
+    component: UserProfileComponent
+  },
 
-  // otherwise redirect to home
-  { path: '**', redirectTo: 'signup'}
+  // 404 - redirect to home
+  {path: '**', redirectTo: 'signup'}
 ];
 @NgModule({
   imports: [
     RouterModule.forRoot(routes)
   ],
-  exports: [ RouterModule ]
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

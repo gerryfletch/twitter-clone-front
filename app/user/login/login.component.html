@@ -1,8 +1,20 @@
-<form>
-  <input #username type="text" name="username" placeholder="Username" />
-  <input #password type="password" name="password" placeholder="Password" />
-</form>
-<section class="buttons">
-  <button class="login-button active" (click)="login(username.value, password.value)">LOGIN</button>
-  <button class="signup-button" routerLink="/signup">SIGN UP</button>
-</section>
+<div class="form">
+  <input [(ngModel)]="handle"
+         type="text"
+         name="handle"
+         placeholder="Handle"
+         autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+  <input [(ngModel)]="password"
+         type="password"
+         name="password"
+         placeholder="Password"
+         autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+
+  <section class="buttons">
+    <button class="login-button active" (click)="login()">LOGIN</button>
+    <button class="signup-button" routerLink="/signup">SIGN UP</button>
+  </section>
+  <section class="response-error" *ngIf="isError">
+    {{error}}
+  </section>
+</div>

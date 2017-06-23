@@ -1,7 +1,16 @@
 @import '../../partials/base.scss';
 
-form {
+.form {
   max-width:200px;
   margin: 0 auto;
-  margin-top:10px;
+}
+.response-error {
+  max-width: 200px;
+  margin: 0 auto;
+  margin-top: 20px;
+
+  color: $error-colour;
+  font-size: 0.9em;
+  line-height: 1em;
+
 }

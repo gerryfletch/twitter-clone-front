@@ -1,45 +1,49 @@
-<form>
+<div class="form">
   <div class="atContainer">
-    <div class="handleAt" [class.atError]="isError" [class.isFocused]="isFocused">
+    <div class="handleAt" [class.atError]="!isHandleOk" [class.isFocused]="isFocused">
       <p>@</p>
     </div>
     <input [(ngModel)]="handle"
            name="handle"
            type="text"
            placeholder="handle"
-           (keyup)="checkHandle()"
+           (keyup)="validateForm()"
+           (keyup)="handleFocused()"
            [class.handleError]="!isHandleOk"
            (focus)="handleFocused()"
            (focusout)="handleUnfocused()"
     />
   </div>
   <p *ngIf="!isHandleOk" [@showHideText]="!isHandleOk" class="inputHelper">A handle must only contain lower case letters, numbers, - and _</p>
+  <p *ngIf="!isHandleAvailable" [@showHideText]="!isHandleAvailable" class="inputHelper">Oops! It looks like this username isn't available.</p>
   <input [(ngModel)]="displayName"
          name="displayName"
          type="text"
          placeholder="display name"
-         (keyup)="checkDisplay()"
+         (keyup)="validateForm()"
          [class.error]="!isDisplayOk"
+         autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
   />
   <input [(ngModel)]="email"
          name="email"
          type="email"
          placeholder="you@email.com"
-         (keyup)="checkEmail()"
+         (keyup)="validateForm()"
          [class.error]="!isEmailOk"
   />
   <input [(ngModel)]="password"
          name="password"
          type="password"
          placeholder="********"
-         (keyup)="checkPassword()"
-         (focus)="showText()"
-         (focusout)="hideText()"
+         (keyup)="validateForm()"
          [class.error]="!isPasswordOk"
   />
   <p *ngIf="!isPasswordOk" [@showHideText]="!isPasswordOk" class="inputHelper">passwords must contain uppercase + lowercase characters, and at least 1 number.</p>
-</form>
-<section class="buttons">
-  <button class="active">SIGN UP</button>
-  <button class="login-button" routerLink="/login">LOGIN</button>
-</section>
+  <section class="buttons">
+    <button class="active" (click)="register()">SIGN UP</button>
+    <button class="login-button" routerLink="/login">LOGIN</button>
+  </section>
+  <section class="response-error" *ngIf="isResponseError">
+    {{responseError}}
+  </section>
+</div>
