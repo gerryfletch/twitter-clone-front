@@ -1,24 +1,27 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {UserProfileService} from '../../../_services/user/user-profile.service';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
-  providers: [ UserProfileService ]
+  providers: [UserProfileService]
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
 
-  handle: string;
   private sub: any;
 
   doesUserExist = true;
 
-  private profile: any;
+  handle: string;
+  profile: any;
 
   constructor(private route: ActivatedRoute,
-              private userService: UserProfileService) { }
+              private router: Router,
+              private userService: UserProfileService,
+              private changeDetRef: ChangeDetectorRef) {
+  }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
@@ -26,18 +29,19 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     });
 
     this.userService.getUserProfile(this.handle)
-      .map(res => {
-        console.log('status: ' + res.status);
-        if (res.status === 404) {
-          this.doesUserExist = false;
-        }
-      })
       .subscribe(
-        profile => this.profile = profile,
-        error => console.log(error)
+        result => {
+          this.profile = result.json();
+          this.changeDetRef.detectChanges();
+        },
+        error => {
+          if (error.status === 404) {
+            this.doesUserExist = false;
+          } else if (error.status === 500) {
+            this.router.navigateByUrl('/logout');
+          }
+        }
       );
-
-    console.log(this.profile);
 
   }
 

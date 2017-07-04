@@ -8,6 +8,8 @@ import {Router} from '@angular/router'
 })
 export class NavigationComponent implements OnInit {
 
+  handle: string;
+
   homeActive = false;
   notificationsActive = false;
   searchActive = false;
@@ -19,11 +21,21 @@ export class NavigationComponent implements OnInit {
 
   ngOnInit() {
 
+    this.handle = localStorage.getItem('handle');
+
     this.homeActive =          (this.router.url === '/dashboard');
     this.notificationsActive = (this.router.url === '/notifications');
     this.searchActive =        (this.router.url === '/search');
     this.menuActive =          (this.router.url === '/menu');
 
+  }
+
+  menuClicked() {
+    if (this.menuActive) {
+      window.history.back();
+    } else {
+      this.router.navigateByUrl('/menu');
+    }
   }
 
 }

@@ -24,7 +24,8 @@ import { MenuComponent } from './components/menu/menu.component';
 import { UserProfileComponent } from './components/content/user-profile/user-profile.component';
 import { UserProfile404Component } from './components/content/user-profile/user-profile-404/user-profile-404.component';
 import { AuthHttp } from 'angular2-jwt/angular2-jwt';
-import { authHttpServiceFactory } from './auth.module';
+import { authHttpServiceFactory } from './_guards/auth.module';
+import { ProfileComponent } from './components/content/user-profile/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { authHttpServiceFactory } from './auth.module';
     NavigationComponent,
     MenuComponent,
     UserProfileComponent,
-    UserProfile404Component
+    UserProfile404Component,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

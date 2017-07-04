@@ -1,0 +1,44 @@
+<header>
+  <div class="container">
+    <div class="row header-details">
+      <div class="profile-picture">
+        <img src="{{profilePicture}}" />
+      </div>
+      <div class="header-detail">
+        <h1>{{displayName}}</h1>
+        <h2>@{{handle}}</h2>
+      </div>
+    </div>
+    <div class="row account-detail">
+      <p>{{bio}}</p>
+    </div>
+    <div class="row">
+      <table>
+        <tr>
+          <th>Tweets</th>
+          <th>Followers</th>
+          <th>Following</th>
+        </tr>
+        <tr>
+          <td>{{numberOfTweets}}</td>
+          <td>{{numberOfFollowers}}</td>
+          <td>{{numberOfFollowing}}</td>
+        </tr>
+      </table>
+    </div>
+    <div class="row">
+      <div class="account-buttons">
+        <button class="follow" *ngIf="!self">FOLLOW</button>
+        <button class="tweet" *ngIf="!self">TWEET</button>
+        <button class="edit" *ngIf="self" [routerLink]="['/user', handle, '/edit']">EDIT PROFILE</button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <h4>Activity</h4>
+    </div>
+  </div>
+</header>
+<main>
+
+</main>

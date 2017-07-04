@@ -20,7 +20,7 @@
             d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z"/>
         </svg>
       </div>
-      <div class="column" [routerLink]="['/menu']" [class.active]="menuActive">
+      <div class="column" (click)="menuClicked()" [class.active]="menuActive">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
           <path d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z"/>
         </svg>
@@ -54,8 +54,8 @@
               d="M15.137 3.945c-.644-.374-1.042-1.07-1.041-1.82v-.003c.001-1.172-.938-2.122-2.096-2.122s-2.097.95-2.097 2.122v.003c.001.751-.396 1.446-1.041 1.82-4.667 2.712-1.985 11.715-6.862 13.306v1.749h20v-1.749c-4.877-1.591-2.195-10.594-6.863-13.306zm-3.137-2.945c.552 0 1 .449 1 1 0 .552-.448 1-1 1s-1-.448-1-1c0-.551.448-1 1-1zm3 20c0 1.598-1.392 3-2.971 3s-3.029-1.402-3.029-3h6z"/>
           </svg>
         </div>
-        <div class="column" [routerLink]="['/me']">
-          <img src="http://www.thesoundarchive.com/images/Tiles/archer.png"/>
+        <div class="column" [routerLink]="['/user', handle]">
+          <img src="http://www.thesoundarchive.com/images/Tiles/archer.png" id="ownProfile"/>
         </div>
       </div>
     </div>

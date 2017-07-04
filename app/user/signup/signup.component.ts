@@ -118,6 +118,7 @@ export class SignupComponent {
             if (result.ok) {
               const token = resultJson.token;
               localStorage.setItem('token', token);
+              localStorage.setItem('handle', this.handle);
               this.router.navigate(['/dashboard']);
             } else {
               this.responseError = 'An error occured.';

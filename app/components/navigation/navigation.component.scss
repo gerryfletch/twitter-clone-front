@@ -160,6 +160,10 @@ nav {
     }
   }
 
+  #ownProfile {
+    cursor: pointer;
+  }
+
   @media(min-width: 600px) {
     .mobile {
       display: none;

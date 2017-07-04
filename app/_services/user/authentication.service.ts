@@ -31,7 +31,7 @@ export class AuthenticationService {
         }
 
         localStorage.setItem('token', token);
-
+        localStorage.setItem('handle', handle);
         return tokenNotExpired();
 
       });
@@ -45,7 +45,6 @@ export class AuthenticationService {
   }
 
   isLoggedIn(): boolean {
-    console.log("Is token expired? " + tokenNotExpired());
     return tokenNotExpired();
   }
 }

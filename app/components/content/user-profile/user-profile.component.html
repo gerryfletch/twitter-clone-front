@@ -1,12 +1,6 @@
 <app-navigation></app-navigation>
 <app-user-profile-404 *ngIf="!doesUserExist"></app-user-profile-404>
-
-<!--
-  TODO
-
-  1) Check handle in DB, return 404 or 200 OK
-  2) Get the users...
-    - Display Name
-    - Bio
-    -
--->
+<user-profile *ngIf="doesUserExist"
+              [handle]="handle"
+              [profile]="profile"
+></user-profile>
