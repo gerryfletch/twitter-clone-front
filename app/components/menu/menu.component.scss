@@ -2,10 +2,12 @@
 
 .menu-body {
   width: 100%;
-  height: calc(100% - 60px);
+  height: calc(100% - 30px);
   min-height: 300px;
 
-  margin-top: -30px;
+  margin-top:-30px;
+
+  background-color: $primary-color;
 
   display: flex;
   align-items: center;
@@ -17,8 +19,8 @@
   display: flex;
   justify-content: flex-end;
 
-  color: #444;
-  fill: #444;
+  color: #FFF;
+  fill: #FFF;
 
   &:nth-child(1n+1) {
     margin-top:30px;
@@ -42,8 +44,6 @@
   .row-icon {
     width: 30px;
     text-align:right;
-
-
 
   }
 

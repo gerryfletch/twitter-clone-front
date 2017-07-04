@@ -10,29 +10,40 @@ import {UserProfileComponent} from '../components/content/user-profile/user-prof
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/signup',
     pathMatch: 'full',
-    canActivate: [AuthGuard]},
+    redirectTo: 'signup',
+    canActivate: [AuthGuard],
+  },
   {
     path: 'signup',
-    component: HomePageComponent},
+    component: HomePageComponent
+  },
   {
     path: 'login',
-    component: HomePageComponent},
+    component: HomePageComponent
+  },
   {
     path: 'logout',
-    component: LogoutComponent},
-  {
-    path: 'dashboard',
-    component: DashboardComponent
+    component: LogoutComponent
   },
+
   {
-    path: 'menu',
-    component: MenuComponent
-  },
-  {
-    path: 'user/:handle',
-    component: UserProfileComponent
+    path: '',
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'dashboard',
+        component: DashboardComponent
+      },
+      {
+        path: 'menu',
+        component: MenuComponent
+      },
+      {
+        path: 'user/:handle',
+        component: UserProfileComponent
+      },
+    ]
   },
 
   // 404 - redirect to home

@@ -116,10 +116,8 @@ export class SignupComponent {
             const resultJson = result.json();
             console.log(resultJson);
             if (result.ok) {
-              const handle = resultJson.handle;
-              const uid = resultJson.uid;
               const token = resultJson.token;
-              this.authenticationService.storeLogin(handle, uid, token);
+              localStorage.setItem('token', token);
               this.router.navigate(['/dashboard']);
             } else {
               this.responseError = 'An error occured.';

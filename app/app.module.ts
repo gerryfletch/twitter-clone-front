@@ -16,13 +16,15 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 /* JWT */
 import { AuthGuard } from './_guards/auth.guards';
 import { AuthenticationService } from './_services/index';
-import { HttpModule } from '@angular/http';
+import { Http, HttpModule, RequestOptions } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LogoutComponent } from './user/logout/logout.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { UserProfileComponent } from './components/content/user-profile/user-profile.component';
 import { UserProfile404Component } from './components/content/user-profile/user-profile-404/user-profile-404.component';
+import { AuthHttp } from 'angular2-jwt/angular2-jwt';
+import { authHttpServiceFactory } from './auth.module';
 
 @NgModule({
   declarations: [
@@ -42,11 +44,16 @@ import { UserProfile404Component } from './components/content/user-profile/user-
     AppRoutingModule,
     HttpModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [
     AuthGuard,
-    AuthenticationService
+    AuthenticationService,
+    {
+      provide: AuthHttp,
+      useFactory: authHttpServiceFactory,
+      deps: [ Http, RequestOptions ]
+    }
   ],
   bootstrap: [AppComponent]
 })
