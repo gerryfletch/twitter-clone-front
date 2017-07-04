@@ -6,6 +6,8 @@ import {HomePageComponent} from '../home/homepage.component';
 import {LogoutComponent} from '../user/logout/logout.component';
 import {MenuComponent} from '../components/menu/menu.component';
 import {UserProfileComponent} from '../components/content/user-profile/user-profile.component';
+import {EditProfileComponent} from '../components/content/user-profile/edit-profile/edit-profile.component';
+import {SelfGuard} from '../_guards/self.guard';
 
 const routes: Routes = [
   {
@@ -43,6 +45,11 @@ const routes: Routes = [
         path: 'user/:handle',
         component: UserProfileComponent
       },
+      {
+        path: 'user/:handle/edit',
+        component: EditProfileComponent,
+        canActivate: [SelfGuard]
+      }
     ]
   },
 

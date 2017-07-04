@@ -26,6 +26,8 @@ import { UserProfile404Component } from './components/content/user-profile/user-
 import { AuthHttp } from 'angular2-jwt/angular2-jwt';
 import { authHttpServiceFactory } from './_guards/auth.module';
 import { ProfileComponent } from './components/content/user-profile/profile/profile.component';
+import { EditProfileComponent } from './components/content/user-profile/edit-profile/edit-profile.component';
+import {SelfGuard} from './_guards/self.guard';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { ProfileComponent } from './components/content/user-profile/profile/prof
     MenuComponent,
     UserProfileComponent,
     UserProfile404Component,
-    ProfileComponent
+    ProfileComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,7 @@ import { ProfileComponent } from './components/content/user-profile/profile/prof
   ],
   providers: [
     AuthGuard,
+    SelfGuard,
     AuthenticationService,
     {
       provide: AuthHttp,

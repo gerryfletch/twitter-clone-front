@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit, OnChanges {
   numberOfFollowing: number;
 
   self: boolean;
+  following: boolean;
 
   constructor() { }
 
@@ -47,7 +48,14 @@ export class ProfileComponent implements OnInit, OnChanges {
     this.numberOfFollowers = statistics.number_of_followers;
     this.numberOfFollowing = statistics.number_of_following;
 
+    const relationship = profile.relationship;
+    this.following = relationship.following;
+
     this.self = profile.self;
+
+  }
+
+  follow() {
 
   }
 

@@ -4,10 +4,16 @@
       <div class="profile-picture">
         <img src="{{profilePicture}}" />
       </div>
-      <div class="header-detail">
+      <div class="header-detail mobile">
         <h1>{{displayName}}</h1>
         <h2>@{{handle}}</h2>
       </div>
+    </div>
+    <div class="row desktop">
+      <h1>{{displayName}}</h1>
+    </div>
+    <div class="row desktop">
+      <h2>@{{handle}}</h2>
     </div>
     <div class="row account-detail">
       <p>{{bio}}</p>
@@ -28,9 +34,10 @@
     </div>
     <div class="row">
       <div class="account-buttons">
-        <button class="follow" *ngIf="!self">FOLLOW</button>
+        <button class="follow" *ngIf="!self && !following" (click)="follow()">FOLLOW</button>
+        <button class="unfollow" *ngIf="!self && following">UNFOLLOW</button>
         <button class="tweet" *ngIf="!self">TWEET</button>
-        <button class="edit" *ngIf="self" [routerLink]="['/user', handle, '/edit']">EDIT PROFILE</button>
+        <button class="edit" *ngIf="self" [routerLink]="['/user', handle, 'edit']">EDIT PROFILE</button>
       </div>
     </div>
 
