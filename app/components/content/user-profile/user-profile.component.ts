@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UserProfileService} from '../../../_services/user/user-profile.service';
+import {UserProfileService} from '../../../_services/profile/user-profile.service';
 
 @Component({
   selector: 'app-user-profile',

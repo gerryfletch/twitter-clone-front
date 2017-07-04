@@ -110,6 +110,14 @@ header {
       color: white;
       letter-spacing: 2px;
       font-size:0.8em;
+
+      transition-duration:0.2s;
+
+      &:focus {
+        outline: none;
+        opacity: 0.8;
+      }
+
     }
 
     .follow {
@@ -166,7 +174,7 @@ main {
   display: none!important;
 }
 
-@media(min-width: 600px) {
+@media(min-width: 400px) {
   .mobile {
     display: none!important;
   }

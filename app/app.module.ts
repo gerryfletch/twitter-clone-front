@@ -28,6 +28,8 @@ import { authHttpServiceFactory } from './_guards/auth.module';
 import { ProfileComponent } from './components/content/user-profile/profile/profile.component';
 import { EditProfileComponent } from './components/content/user-profile/edit-profile/edit-profile.component';
 import {SelfGuard} from './_guards/self.guard';
+import {UserUtilsService} from './_services/user/user-utils.service';
+import {RelationshipService} from './_services/relationships/relationship.service';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import {SelfGuard} from './_guards/self.guard';
     AuthGuard,
     SelfGuard,
     AuthenticationService,
+    UserUtilsService,
+    RelationshipService,
     {
       provide: AuthHttp,
       useFactory: authHttpServiceFactory,

@@ -1,7 +1,7 @@
 import {Component, trigger, transition, style, animate, state} from '@angular/core'
 
 import {VerificationService} from '../../_services/user/verification-service.service';
-import {RegisterService} from '../../_services/user/register.service';
+import {RegisterService} from '../../_services/security/register/register.service';
 import {UserUtilsService} from '../../_services/user/user-utils.service';
 import {AuthenticationService} from 'app/_services';
 import {Router} from '@angular/router';

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../../_services/user/authentication.service';
+import { AuthenticationService } from '../../_services/security/login/authentication.service';
 
 @Component({
   templateUrl: './dashboard.component.html',

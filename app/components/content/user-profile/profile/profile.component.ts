@@ -1,4 +1,5 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {RelationshipService} from 'app/_services/relationships/relationship.service';
 
 @Component({
   selector: 'user-profile',
@@ -20,7 +21,10 @@ export class ProfileComponent implements OnInit, OnChanges {
   self: boolean;
   following: boolean;
 
-  constructor() { }
+  error: string;
+  isError = false;
+
+  constructor(private relationshipService: RelationshipService) { }
 
   ngOnInit() {}
 
@@ -56,7 +60,37 @@ export class ProfileComponent implements OnInit, OnChanges {
   }
 
   follow() {
+    this.relationshipService.followUser(this.handle)
+      .subscribe(
+        result => {
+          this.isError = false;
+          this.following = true;
+          this.numberOfFollowers += 1;
+        },
+        error => {
+          this.isError = true;
+          this.error = error.json().error;
+        }
+      );
+  }
 
+  unfollow() {
+    this.relationshipService.unfollowUser(this.handle)
+      .subscribe(
+        result => {
+          this.isError = false;
+          this.following = false;
+          this.numberOfFollowers -= 1;
+        },
+        error => {
+          this.isError = true;
+          if (error.status === 500) {
+            this.error = 'Woah there. Something went wrong on our end.';
+          } else {
+            this.error = error.json().error;
+          }
+        }
+      )
   }
 
 }
