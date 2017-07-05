@@ -11,8 +11,13 @@ export class UserProfileService {
   ) { }
 
   getUserProfile(handle: string) {
-    this.userAPI = this.userAPI + handle;
-    return this.authHttp.get(this.userAPI);
+    const href = this.userAPI + handle;
+    return this.authHttp.get(href);
+  }
+
+  updateUserProfile(json, handle) {
+    const href = this.userAPI + handle + '/edit';
+    return this.authHttp.post(href, json);
   }
 
 }

@@ -41,7 +41,7 @@ export class VerificationService {
 
   isDisplayNameValid(displayName: string) {
     if (displayName === '') { return true; }
-    return !(displayName.length < 3 || displayName.length > 15);
+    return !(displayName.length < 3 || displayName.length > 20);
   }
 
   isEmailValid(email: string) {
