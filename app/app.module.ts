@@ -31,6 +31,7 @@ import {SelfGuard} from './_guards/self.guard';
 import {UserUtilsService} from './_services/user/user-utils.service';
 import {RelationshipService} from './_services/relationships/relationship.service';
 import { NewTweetComponent } from './components/tweeting/new-tweet.component';
+import { TagUserBarComponent } from './components/tweeting/tag-user-bar/tag-user-bar.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { NewTweetComponent } from './components/tweeting/new-tweet.component';
     UserProfile404Component,
     ProfileComponent,
     EditProfileComponent,
-    NewTweetComponent
+    NewTweetComponent,
+    TagUserBarComponent
   ],
   imports: [
     BrowserModule,

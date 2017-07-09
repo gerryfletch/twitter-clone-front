@@ -1,9 +1,19 @@
-/**
- * Created by Gerry on 11/06/2017.
- */
 export class User {
-  username: string;
-  firstName: string;
-  lastName: string;
-  uid: number;
+  public uid: number;
+  public displayName: string;
+  public handle: string;
+  public profilePicture: string;
+
+  constructor(
+    uid: number,
+    display_name: string,
+    handle: string,
+    profile_picture: string
+  ) {
+    this.uid = uid;
+    this.displayName = display_name;
+    this.handle = handle;
+    this.profilePicture = profile_picture;
+  }
+
 }

@@ -6,7 +6,7 @@
     max-width: 500px;
   }
 
-  height: 150px;
+  min-height: 150px;
   background-color: white;
   border: 1px solid #d7d7d7;
   padding: 20px;
@@ -29,6 +29,11 @@
       outline: none;
       border-bottom: 1px solid #47a2ff;
     }
+  }
+
+  .tags {
+    width: 100%;
+    margin-bottom: 20px;
   }
 
   button {

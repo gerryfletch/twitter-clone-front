@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {GetTagService} from '../../_services/tweeting/get-tag.service';
+import {User} from '../../_model/user';
 
 @Component({
   selector: 'new-tweet',
@@ -10,6 +11,9 @@ import {GetTagService} from '../../_services/tweeting/get-tag.service';
 export class NewTweetComponent implements OnInit {
 
   caretPos = 0;
+  cachedTag = '';
+
+  users: User[] = [];
 
   constructor(private getTagService: GetTagService) { }
 
@@ -21,26 +25,34 @@ export class NewTweetComponent implements OnInit {
     const text = textarea.value;
     const word = this.getWord(text);
 
-    if (word.startsWith('@') && word.length >= 2) {
+    if (word.startsWith('@') && word.length >= 3) {
       const tag = word.substring(1);
-      this.getTags(tag);
 
+      if(tag === this.cachedTag) {
+        return;
+      } else {
+        this.cachedTag = tag;
+      }
+
+      this.getTags(tag);
     } else if (word.startsWith('#') && word.length >= 2) {
       const hashtag = word.substring(1);
-      console.log(hashtag);
+    } else {
+      this.users = [];
     }
 
   }
 
-  private getTags(tag: string) {
-    this.getTagService.getTag(tag)
+  private getTags(tag: string){
+    this.getTagService.getTags(tag)
       .subscribe(
-        result => {
-          console.log(result);
+        users => {
+          console.log(users);
+          if(users.length !== this.users.length) {
+            this.users = users;
+          }
         },
-        error => {
-          console.log(error);
-        }
+        err => console.log(err)
       );
   }
 
@@ -74,7 +86,6 @@ export class NewTweetComponent implements OnInit {
         }
       }
     }
-
   }
 
 }

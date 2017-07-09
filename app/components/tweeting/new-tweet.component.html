@@ -2,6 +2,16 @@
   <textarea placeholder="What's going on today?"
             #myTextArea
             (keyup)="onKey(myTextArea)"
-  id="tweet-input"></textarea>
+            id="tweet-input"></textarea>
+  <section class="tags">
+    <ul>
+      <tag-user-bar
+        *ngFor="let user of users"
+        [profilePicture]="user.profile_picture"
+        [displayName]="user.display_name"
+        [handle]="user.handle"
+      ></tag-user-bar>
+    </ul>
+  </section>
   <button>Tweet</button>
 </div>
