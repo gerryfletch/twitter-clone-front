@@ -1,32 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import {GetTagService} from '../../_services/tweeting/get-tag.service';
 import {User} from '../../_model/user';
+import {PostTweetService} from '../../_services/tweeting/post-tweet.service';
 
 @Component({
   selector: 'new-tweet',
   templateUrl: './new-tweet.component.html',
   styleUrls: ['./new-tweet.component.scss'],
-  providers: [GetTagService]
+  providers: [GetTagService, PostTweetService]
 })
-export class NewTweetComponent implements OnInit {
+export class NewTweetComponent{
 
   caretPos = 0;
   cachedTag = '';
+  currentWord = '';
 
   users: User[] = [];
 
-  constructor(private getTagService: GetTagService) { }
+  isValid = false;
+  isError = false;
 
-  ngOnInit() {
-  }
+  constructor(private getTagService: GetTagService,
+              private postService: PostTweetService) { }
 
   onKey(textarea) {
     this.getCaretPos(textarea);
     const text = textarea.value;
-    const word = this.getWord(text);
+    this.currentWord = this.getWord(text);
 
-    if (word.startsWith('@') && word.length >= 3) {
-      const tag = word.substring(1);
+    this.isValid = (text.length > 0 && text.length < 140);
+    this.isError = (text.length > 140);
+
+    if (this.currentWord.startsWith('@') && this.currentWord.length >= 3) {
+      const tag = this.currentWord.substring(1);
 
       if(tag === this.cachedTag) {
         return;
@@ -34,20 +40,48 @@ export class NewTweetComponent implements OnInit {
         this.cachedTag = tag;
       }
 
+      /* Update Tag View */
       this.getTags(tag);
-    } else if (word.startsWith('#') && word.length >= 2) {
-      const hashtag = word.substring(1);
+
+    } else if (this.currentWord.startsWith('#') && this.currentWord.length >= 2) {
+      const hashtag = this.currentWord.substring(1);
     } else {
       this.users = [];
+      this.cachedTag = '';
     }
 
+  }
+
+  tagClicked(handle: string, textarea: any) {
+    let text: string = textarea.value;
+    const updatedVal = text.replace(this.currentWord, '@' + handle);
+
+    const index = this.findFirstOccurenceReversed(text, '@');
+
+    const update = text.substr(0, index + 1) + handle + text.substr(index + this.currentWord.length);
+    console.log(text);
+    console.log(update);
+
+    textarea.value = update;
+    this.users = [];
+  }
+
+  post(textarea: any) {
+    this.postService.newTweet(textarea.value);
+  }
+
+  private findFirstOccurenceReversed(text: string, search: string) {
+    for(let i = this.caretPos; i >= 0; i--) {
+      if (text.charAt(i) === search) {
+        return i;
+      }
+    }
   }
 
   private getTags(tag: string){
     this.getTagService.getTags(tag)
       .subscribe(
         users => {
-          console.log(users);
           if(users.length !== this.users.length) {
             this.users = users;
           }

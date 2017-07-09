@@ -1,8 +1,11 @@
 <div class="status-container">
   <textarea placeholder="What's going on today?"
-            #myTextArea
-            (keyup)="onKey(myTextArea)"
+            #TextArea
+            (keyup)="onKey(TextArea)"
             id="tweet-input"></textarea>
+  <div class="error" *ngIf="isError">
+    Tweets can only be 140 characters long!
+  </div>
   <section class="tags">
     <ul>
       <tag-user-bar
@@ -10,8 +13,12 @@
         [profilePicture]="user.profile_picture"
         [displayName]="user.display_name"
         [handle]="user.handle"
+        (click)="tagClicked(user.handle, TextArea)"
       ></tag-user-bar>
     </ul>
   </section>
-  <button>Tweet</button>
+  <button
+    [disabled]="!isValid"
+    (click)="post(TextArea)"
+  >Tweet</button>
 </div>

@@ -1,8 +1,8 @@
 export class User {
-  public uid: number;
-  public displayName: string;
-  public handle: string;
-  public profilePicture: string;
+  uid: number;
+  display_name: string;
+  handle: string;
+  profile_picture: string;
 
   constructor(
     uid: number,
@@ -11,9 +11,9 @@ export class User {
     profile_picture: string
   ) {
     this.uid = uid;
-    this.displayName = display_name;
+    this.display_name = display_name;
     this.handle = handle;
-    this.profilePicture = profile_picture;
+    this.profile_picture = profile_picture;
   }
 
 }
