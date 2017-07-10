@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {GetTagService} from '../../_services/tweeting/get-tag.service';
 import {User} from '../../_model/user';
 import {PostTweetService} from '../../_services/tweeting/post-tweet.service';
+import {Tweet} from '../../_model/tweet-model';
 
 @Component({
   selector: 'new-tweet',
@@ -67,7 +68,13 @@ export class NewTweetComponent{
   }
 
   post(textarea: any) {
-    this.postService.newTweet(textarea.value);
+    this.postService.newTweet(textarea.value)
+      .subscribe(
+        result => {
+          console.log(result);
+        },
+        error => console.log(error)
+      )
   }
 
   private findFirstOccurenceReversed(text: string, search: string) {
