@@ -4,7 +4,7 @@ import { AuthHttp } from 'angular2-jwt/angular2-jwt';
 @Injectable()
 export class UserProfileService {
 
-  private userAPI = 'api/user/';
+  private userAPI = 'api/profile/';
 
   constructor(
     private authHttp: AuthHttp
@@ -16,8 +16,8 @@ export class UserProfileService {
   }
 
   updateUserProfile(json, handle) {
-    const href = this.userAPI + handle + '/edit';
-    return this.authHttp.post(href, json);
+    const href = this.userAPI + handle;
+    return this.authHttp.put(href, json);
   }
 
 }

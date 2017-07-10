@@ -13,7 +13,7 @@ export class PostTweetService {
     to be pushed onto the feed.
    */
   newTweet(body: string): Observable<Tweet> {
-    const url = 'api/tweet/new';
+    const url = 'api/tweet';
     const json = {body: body};
     return this.authHttp.post(url, json)
       .map(res =>  res.json() as Tweet)

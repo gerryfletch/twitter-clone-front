@@ -22,7 +22,8 @@ export interface Entities {
 export interface Tweet {
   author_id: number;
   timestamp: string;
-  profile: Profile;
   body: string;
+  hash_id: string;
+  profile: Profile;
   entities: Entities;
 }

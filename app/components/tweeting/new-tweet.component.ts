@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {GetTagService} from '../../_services/tweeting/get-tag.service';
-import {User} from '../../_model/user';
-import {PostTweetService} from '../../_services/tweeting/post-tweet.service';
-import {Tweet} from '../../_model/tweet-model';
+import { Component } from '@angular/core';
+import { GetTagService } from '../../_services/tweeting/get-tag.service';
+import { PostTweetService } from '../../_services/tweeting/post-tweet.service';
+import { User } from '../../_model/user-model';
 
 @Component({
   selector: 'new-tweet',
@@ -17,6 +16,7 @@ export class NewTweetComponent{
   currentWord = '';
 
   users: User[] = [];
+
 
   isValid = false;
   isError = false;
@@ -60,8 +60,6 @@ export class NewTweetComponent{
     const index = this.findFirstOccurenceReversed(text, '@');
 
     const update = text.substr(0, index + 1) + handle + text.substr(index + this.currentWord.length);
-    console.log(text);
-    console.log(update);
 
     textarea.value = update;
     this.users = [];
@@ -88,9 +86,9 @@ export class NewTweetComponent{
   private getTags(tag: string){
     this.getTagService.getTags(tag)
       .subscribe(
-        users => {
-          if(users.length !== this.users.length) {
-            this.users = users;
+        result => {
+          if(result.users.length !== this.users.length) {
+            this.users = result.users;
           }
         },
         err => console.log(err)

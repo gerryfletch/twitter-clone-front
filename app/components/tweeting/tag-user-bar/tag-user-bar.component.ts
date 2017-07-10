@@ -13,8 +13,6 @@ export class TagUserBarComponent implements OnInit {
 
   @Input()
   set profilePicture(profilePicture: string) {
-    console.log("Profile pic: ");
-    console.log(profilePicture);
     if (profilePicture !== null) {
       this._profilePicture = profilePicture;
     }
