@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { GetTagService } from '../../_services/tweeting/get-tag.service';
-import { PostTweetService } from '../../_services/tweeting/post-tweet.service';
-import { User } from '../../_model/user-model';
+import {Component, Input, OnInit} from '@angular/core';
+import {GetTagService} from '../../_services/tweeting/get-tag.service';
+import {PostTweetService} from '../../_services/tweeting/post-tweet.service';
+import {User} from '../../_model/user-model';
 
 @Component({
   selector: 'new-tweet',
@@ -9,7 +9,7 @@ import { User } from '../../_model/user-model';
   styleUrls: ['./new-tweet.component.scss'],
   providers: [GetTagService, PostTweetService]
 })
-export class NewTweetComponent{
+export class NewTweetComponent implements OnInit {
 
   caretPos = 0;
   cachedTag = '';
@@ -21,8 +21,17 @@ export class NewTweetComponent{
   isValid = false;
   isError = false;
 
+  @Input() tag;
+
   constructor(private getTagService: GetTagService,
-              private postService: PostTweetService) { }
+              private postService: PostTweetService) {
+  }
+
+  ngOnInit() {
+    if(this.tag !== null) {
+      this.tag = "@" + this.tag;
+    }
+  }
 
   onKey(textarea) {
     this.getCaretPos(textarea);
@@ -35,7 +44,7 @@ export class NewTweetComponent{
     if (this.currentWord.startsWith('@') && this.currentWord.length >= 3) {
       const tag = this.currentWord.substring(1);
 
-      if(tag === this.cachedTag) {
+      if (tag === this.cachedTag) {
         return;
       } else {
         this.cachedTag = tag;
@@ -76,18 +85,18 @@ export class NewTweetComponent{
   }
 
   private findFirstOccurenceReversed(text: string, search: string) {
-    for(let i = this.caretPos; i >= 0; i--) {
+    for (let i = this.caretPos; i >= 0; i--) {
       if (text.charAt(i) === search) {
         return i;
       }
     }
   }
 
-  private getTags(tag: string){
+  private getTags(tag: string) {
     this.getTagService.getTags(tag)
       .subscribe(
         result => {
-          if(result.users.length !== this.users.length) {
+          if (result.users.length !== this.users.length) {
             this.users = result.users;
           }
         },

@@ -2,6 +2,7 @@
   <textarea placeholder="What's going on today?"
             #TextArea
             (keyup)="onKey(TextArea)"
+            value="{{tag}}"
             id="tweet-input"></textarea>
   <div class="error" *ngIf="isError">
     Tweets can only be 140 characters long!

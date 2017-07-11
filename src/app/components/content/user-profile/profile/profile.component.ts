@@ -24,6 +24,8 @@ export class ProfileComponent implements OnInit, OnChanges {
   error: string;
   isError = false;
 
+  tweetUser = false;
+
   constructor(private relationshipService: RelationshipService) { }
 
   ngOnInit() {}

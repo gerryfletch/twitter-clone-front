@@ -36,7 +36,7 @@
       <div class="account-buttons">
         <button class="follow" *ngIf="!self && !following" (click)="follow()">FOLLOW</button>
         <button class="unfollow" *ngIf="!self && following" (click)="unfollow()">UNFOLLOW</button>
-        <button class="tweet" *ngIf="!self">TWEET</button>
+        <button class="tweet" *ngIf="!self" (click)="tweetUser = !tweetUser">TWEET</button>
         <button class="edit" *ngIf="self" [routerLink]="['/user', handle, 'edit']">EDIT PROFILE</button>
       </div>
     </div>
@@ -48,3 +48,9 @@
     </div>
   </div>
 </header>
+<div id="newTag" *ngIf="tweetUser">
+  <div class="container">
+    <new-tweet [tag]="handle"></new-tweet>
+  </div>
+</div>
+
