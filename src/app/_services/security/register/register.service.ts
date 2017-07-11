@@ -14,12 +14,12 @@ export class RegisterService {
     private http: Http
   ) { }
 
-  registerNewUser(handle: string, displayName: string, email: string, password: string): Observable<any> {
+  registerNewUser(handle: string, display_name: string, email: string, password: string): Observable<any> {
     const url = 'api/register';
 
     const userJson = {
       handle,
-      displayName,
+      display_name,
       email,
       password
     }

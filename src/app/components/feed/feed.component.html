@@ -1,0 +1,13 @@
+<tweet
+  *ngFor="let tweet of tweets"
+  [tweet]="tweet"
+></tweet>
+<div class="error"
+     *ngIf="tweets.length == 0 && !serverError">
+  There's no tweets to show.<br>:(
+</div>
+<div class="error"
+    *ngIf="serverError">
+  Looks like something went wrong on our end.<br>
+  Sorry about that.
+</div>

@@ -1,0 +1,12 @@
+<section>
+  <header>
+    <div class="profile-picture" [routerLink]="['/user', profile.handle]">
+      <img src="{{profile.profile_picture}}" />
+    </div>
+    <div class="user-details">
+      <h1><h3 [routerLink]="['/user', profile.handle]">{{profile.display_name}}</h3></h1>
+      <h2><h3 [routerLink]="['/user', profile.handle]">@{{profile.handle}}</h3>  -  <h3 [routerLink]="['/tweet', tweet.hash_id]">{{tweet.timestamp}}</h3></h2>
+    </div>
+  </header>
+  <main #tweetbody></main>
+</section>

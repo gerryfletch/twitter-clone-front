@@ -1,8 +1,18 @@
-<app-navigation></app-navigation>
-<main>
+<div class="dashboard">
+  <app-navigation></app-navigation>
   <div class="container">
-    <new-tweet></new-tweet>
+    <main>
+      <div class="container">
+        <new-tweet></new-tweet>
+        <div class="feed">
+          <feed [handle]=null></feed>
+        </div>
+      </div>
+      <div class="container">
+        right side
+        <button routerLink="/logout">logout</button>
+      </div>
+    </main>
   </div>
-</main>
+</div>
 
-<button routerLink="/logout">logout</button>

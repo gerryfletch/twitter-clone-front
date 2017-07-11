@@ -32,6 +32,9 @@ import {UserUtilsService} from './_services/user/user-utils.service';
 import {RelationshipService} from './_services/relationships/relationship.service';
 import { NewTweetComponent } from './components/tweeting/new-tweet.component';
 import { TagUserBarComponent } from './components/tweeting/tag-user-bar/tag-user-bar.component';
+import { FeedComponent } from './components/feed/feed.component';
+import { TweetComponent } from './components/feed/tweet/tweet.component';
+import { PermaTweetComponent } from './components/perma-tweet/perma-tweet.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,10 @@ import { TagUserBarComponent } from './components/tweeting/tag-user-bar/tag-user
     ProfileComponent,
     EditProfileComponent,
     NewTweetComponent,
-    TagUserBarComponent
+    TagUserBarComponent,
+    FeedComponent,
+    TweetComponent,
+    PermaTweetComponent
   ],
   imports: [
     BrowserModule,

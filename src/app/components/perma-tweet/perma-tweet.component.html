@@ -1,0 +1,14 @@
+<app-navigation></app-navigation>
+<div class="container">
+  <tweet
+    *ngIf="isValid && tweet"
+    [tweet]="tweet"
+  ></tweet>
+  <div class="tweet-not-found"
+       *ngIf="!isValid">
+    {{error}}
+    <button (click)="backClick()">
+      Go back home.
+    </button>
+  </div>
+</div>
