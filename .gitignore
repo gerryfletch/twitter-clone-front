@@ -1,0 +1,9 @@
+.idea/
+node_modules/
+e2e/
+.angular-cli.json
+.editorconfig
+karma.conf
+protractor.conf
+tsconfig.json
+tslint.json
