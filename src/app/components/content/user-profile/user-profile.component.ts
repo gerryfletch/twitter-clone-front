@@ -14,7 +14,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   doesUserExist = true;
 
-  handle: string;
+  handle: string = null;
   profile: any;
 
   constructor(private route: ActivatedRoute,
@@ -25,10 +25,15 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.handle = params['handle'];
+      if (this.handle != params['handle']) {
+        this.getUserProfile(params['handle']);
+        this.handle = params['handle'];
+      }
     });
+  }
 
-    this.userService.getUserProfile(this.handle)
+  getUserProfile(handle: string) {
+    this.userService.getUserProfile(handle)
       .subscribe(
         result => {
           this.profile = result.json();
@@ -42,7 +47,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
           }
         }
       );
-
   }
 
   ngOnDestroy() {

@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {RelationshipService} from 'app/_services/relationships/relationship.service';
+import {isNullOrUndefined} from 'util';
 
 @Component({
   selector: 'user-profile',
@@ -33,6 +34,10 @@ export class ProfileComponent implements OnInit, OnChanges {
   ngOnChanges() {
 
     const profile = this.profile;
+
+    if (isNullOrUndefined(profile)) {
+      return;
+    }
 
     this.displayName = profile.display_name;
     this.profilePicture = profile.profile_picture;

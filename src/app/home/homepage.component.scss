@@ -9,6 +9,7 @@ main {
   height: 100%;
   display: flex;
   flex-wrap: wrap;
+  background-color: white;
 }
 
 .section-2 {
@@ -74,16 +75,11 @@ main {
     border-bottom: 1px solid white;
   }
 
-  background:
-    linear-gradient(
-        rgba(48, 135, 255, 0.7),
-        rgba(48, 135, 255, 0.7)
-    ),
-
-    url('../../assets/background.jpg');
-  background-repeat: no-repeat;
+  background: linear-gradient(
+      rgba(48, 135, 255, 0.7),
+      rgba(48, 135, 255, 0.7)
+  ), url('../../assets/background.jpg') no-repeat 100% 0;
   background-size: cover;
-  background-position: 100% 0%;
 }
 
 @media (min-width: 950px) {

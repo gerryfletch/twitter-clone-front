@@ -1,13 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {GetTagService} from '../../_services/tweeting/get-tag.service';
-import {PostTweetService} from '../../_services/tweeting/post-tweet.service';
+import {TweetService} from '../../_services/tweeting/tweet.service';
 import {User} from '../../_model/user-model';
 
 @Component({
   selector: 'new-tweet',
   templateUrl: './new-tweet.component.html',
   styleUrls: ['./new-tweet.component.scss'],
-  providers: [GetTagService, PostTweetService]
+  providers: [GetTagService, TweetService]
 })
 export class NewTweetComponent implements OnInit {
 
@@ -24,12 +24,12 @@ export class NewTweetComponent implements OnInit {
   @Input() tag;
 
   constructor(private getTagService: GetTagService,
-              private postService: PostTweetService) {
+              private postService: TweetService) {
   }
 
   ngOnInit() {
-    if(this.tag !== null) {
-      this.tag = "@" + this.tag;
+    if (this.tag !== null) {
+      this.tag = '@' + this.tag;
     }
   }
 
@@ -64,21 +64,18 @@ export class NewTweetComponent implements OnInit {
 
   tagClicked(handle: string, textarea: any) {
     let text: string = textarea.value;
-    const updatedVal = text.replace(this.currentWord, '@' + handle);
-
     const index = this.findFirstOccurenceReversed(text, '@');
 
-    const update = text.substr(0, index + 1) + handle + text.substr(index + this.currentWord.length);
-
-    textarea.value = update;
+    textarea.value = text.substr(0, index + 1) + handle + text.substr(index + this.currentWord.length);
     this.users = [];
   }
 
+  // todo: don't refresh! make an API call to reload the data.
   post(textarea: any) {
     this.postService.newTweet(textarea.value)
       .subscribe(
         result => {
-          console.log(result);
+          location.reload();
         },
         error => console.log(error)
       )

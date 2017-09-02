@@ -4,7 +4,7 @@ import {Tweet} from '../../_model/tweet-model';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
-export class PostTweetService {
+export class TweetService {
 
   constructor(private authHttp: AuthHttp) { }
 
@@ -18,6 +18,16 @@ export class PostTweetService {
     return this.authHttp.post(url, json)
       .map(res =>  res.json() as Tweet)
       .catch(error => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  likePost(hashid: string) {
+    const url = 'api/tweet/' + hashid + '/like';
+    return this.authHttp.post(url, '');
+  }
+
+  unlikePost(hashid: string) {
+    const url = 'api/tweet/' + hashid + '/unlike';
+    return this.authHttp.delete(url);
   }
 
 }

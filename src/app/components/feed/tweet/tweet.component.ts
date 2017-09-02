@@ -1,10 +1,13 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Entities, Profile, Tweet} from '../../../_model/tweet-model';
+import {TweetService} from '../../../_services/tweeting/tweet.service';
+import {DateService} from '../../../_services/date.service';
 
 @Component({
   selector: 'tweet',
   templateUrl: './tweet.component.html',
-  styleUrls: ['./tweet.component.scss']
+  styleUrls: ['./tweet.component.scss'],
+  providers: [TweetService, DateService]
 })
 export class TweetComponent implements OnInit {
 
@@ -14,18 +17,19 @@ export class TweetComponent implements OnInit {
 
   @ViewChild('tweetbody') tweetbody: ElementRef;
 
-  constructor() { }
+  constructor(private _tweetService: TweetService,
+              private _dateService: DateService) {
+  }
 
   ngOnInit() {
     this.profile = this.tweet.profile;
     this.entities = this.tweet.entities;
     this.formatUserMentions();
-
-    this.tweet.timestamp = prettyDate(this.tweet.timestamp);
+    this.tweet.timestamp = DateService.prettyDate(this.tweet.timestamp);
 
     const profilePicture = this.profile.profile_picture;
 
-    if(profilePicture === null) {
+    if (profilePicture === null) {
       this.profile.profile_picture = 'assets/image/default-profile-picture.svg';
     }
 
@@ -36,10 +40,10 @@ export class TweetComponent implements OnInit {
     let body = this.tweet.body;
 
     if (userMentions.length > 0) {
-      for(let i = userMentions.length - 1; i >= 0; i--) {
+      for (let i = userMentions.length - 1; i >= 0; i--) {
         const mention = userMentions[i];
         const start = mention.indices[0] - 1;
-        const end = mention.  indices[1];
+        const end = mention.indices[1];
         const handle = mention.handle;
 
         // const href = '<a [routerLink]="[\'/user/' + handle + '\']" >@' + handle + '</a>';
@@ -54,23 +58,36 @@ export class TweetComponent implements OnInit {
     this.tweetbody.nativeElement.innerHTML = body;
   }
 
-}
+  /**
+   * Sets the colour of the like symbol instantly, but reverts it if the request fails.
+   */
+  likePost() {
+    if (this.tweet.liked) {
 
-function prettyDate(time){
-  let date = new Date((time || "").replace(/-/g,"/").replace(/[TZ]/g," ")),
-    diff = (((new Date()).getTime() - date.getTime()) / 1000),
-    day_diff = Math.floor(diff / 86400);
+      this.tweet.liked = false;
+      this.tweet.like_count--;
 
-  if ( isNaN(day_diff) || day_diff < 0 || day_diff >= 31 )
-    return;
+      this._tweetService.unlikePost(this.tweet.hash_id)
+        .subscribe(
+          ok => this.tweet.liked = false,
+          error => {
+            this.tweet.liked = true;
+            this.tweet.like_count++;
+          }
+        );
+    } else {
 
-  return day_diff == 0 && (
-    diff < 60 && "just now" ||
-    diff < 120 && "1 minute ago" ||
-    diff < 3600 && Math.floor( diff / 60 ) + " minutes ago" ||
-    diff < 7200 && "1 hour ago" ||
-    diff < 86400 && Math.floor( diff / 3600 ) + " hours ago") ||
-    day_diff == 1 && "Yesterday" ||
-    day_diff < 7 && day_diff + " days ago" ||
-    day_diff < 31 && Math.ceil( day_diff / 7 ) + " weeks ago";
+      this.tweet.liked = true;
+      this.tweet.like_count++;
+      this._tweetService.likePost(this.tweet.hash_id)
+        .subscribe(
+          ok => true,
+          error => {
+            this.tweet.liked = false;
+            this.tweet.like_count--;
+          }
+        );
+    }
+  }
+
 }

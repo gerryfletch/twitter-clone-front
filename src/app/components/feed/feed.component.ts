@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Tweet} from '../../_model/tweet-model';
 import {FeedService} from '../../_services/tweeting/feed/feed.service';
 
@@ -8,38 +8,29 @@ import {FeedService} from '../../_services/tweeting/feed/feed.service';
   styleUrls: ['./feed.component.scss'],
   providers: [FeedService]
 })
-export class FeedComponent implements OnInit {
+export class FeedComponent {
 
   tweets: Tweet[] = [];
-  @Input() handle: string;
-
   serverError: boolean = false;
 
   constructor(
     private feedService: FeedService
   ) { }
 
-  ngOnInit() {
-    if (this.handle === null) {
+  @Input() set handle(handle: string) {
+    if (handle == null) {
       this.feedService.getFeed()
         .subscribe(
-          res => this.tweets = res,
-          error => {
-            console.log(error);
-            this.serverError = true;
-          }
-        );
+          tweets => {this.tweets = tweets; this.serverError = false},
+          error => this.serverError = true
+        )
     } else {
-      this.feedService.getUserFeed(this.handle)
-        .subscribe (
-          res => this.tweets = res,
-          error => {
-            console.log(error);
-            this.serverError = true;
-          }
-        );
+      this.feedService.getUserFeed(handle)
+        .subscribe(
+          tweets => {this.tweets = tweets; this.serverError = false},
+          error => this.serverError = true
+        )
     }
-
-  }
+  };
 
 }
